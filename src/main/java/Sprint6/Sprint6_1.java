@@ -1,6 +1,18 @@
+/**
+ * Create next types: Person (field String name), Student (fields String studyPlace, int studyYears) and Worker (fields String workPosition, int experienceYears). Classes Student and Worker are derived from class Person. All classes have getters to return fields.
+ * Create a maxDuration() method of the MyUtils class to return a list of Students with maximum duration of study and Workers with maximum experience.
+ * For example, for a given list
+ * [Person [name=Ivan], Student [name=Petro, studyPlace=University, studyYears=3], Worker [name=Andriy, workPosition=Developer, experienceYears=12], Student [name=Stepan, studyPlace=College, studyYears=4], Worker [name=Ira, workPosition=Manager, experienceYears=8], Student [name=Ihor, studyPlace=University, studyYears=4]]
+ * you should get
+ * [Worker [name=Andriy, workPosition=Developer, experienceYears=12], Student [name=Stepan, studyPlace=College, studyYears=4], Student [name=Ihor, studyPlace=University, studyYears=4]]
+ */
 package Sprint6;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 public class Sprint6_1 {
     public static void main(String[] args){
 
@@ -20,7 +32,7 @@ public class Sprint6_1 {
         System.out.println(((Student) persons).getStudyYears());
 
       for(Person person : persons){
-        // System.out.println(((Student) person).getStudyYears());
+        System.out.println(((Student) person).getStudyYears());
       }
     }
 }
@@ -32,6 +44,9 @@ class Person{
     }
     public String getName(){
         return name;
+    }
+    public int getDuration(){
+        return 0;
     }
 }
 class Student extends Person implements Comparator<Student>{
@@ -49,6 +64,9 @@ class Student extends Person implements Comparator<Student>{
     public int getStudyYears(){
         return studyYears;
     }
+    public int getDuration(){
+        return studyYears;
+    }
 
     @Override
     public int compare(Student o1, Student o2) {
@@ -57,7 +75,7 @@ class Student extends Person implements Comparator<Student>{
         return 0;
     }
 }
-class Worker extends Person implements Comparator<Worker>{
+class Worker extends Person{
     // Code
     
     private String workPosition;
@@ -73,18 +91,16 @@ class Worker extends Person implements Comparator<Worker>{
     public int getExperienceYears(){
         return experienceYears;
     }
-
-    @Override
-    public int compare(Worker o1, Worker o2) {
-        if(o1.getExperienceYears() > o2.getExperienceYears()) return 1; else
-        if(o1.getExperienceYears()< o2.getExperienceYears()) return -1; else
-            return 0;
+    public int getDuration(){
+        return experienceYears;
     }
 }
    class MyUtils{
     public List<Person> maxDuration(List<Person> persons) {
-        List<Person> ps = new ArrayList<>();
-        Collection<Person> col = new ArrayList<>();
+        //List<Student> ps = new ArrayList<>();
+        List<Person> students = new ArrayList<>();
+        List<Person> workers = new ArrayList<>();
+        //Collection<Person> col = new ArrayList<>();
         for(Person person:persons){
             ((Student) person).getStudyYears();
 
